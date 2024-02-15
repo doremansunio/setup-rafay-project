@@ -1,6 +1,6 @@
-variable "central_pool_name" {
-  type = string  
-}
+# variable "central_pool_name" {
+#   type = string  
+# }
 
 variable "project_name" {
   type = string  

@@ -62,7 +62,7 @@ data "template_file" "tempnetfile" {
 
 resource "github_repository_file" "netfile" {
   depends_on = [data.template_file.tempnetfile]
-  repository     = "waas"
+  repository     = "test"
   branch         = "main"
   file           = "netfiles/${var.project_name}-within-ws-rule.yaml"
   content        = data.template_file.tempnetfile.rendered
@@ -75,17 +75,19 @@ resource "github_repository_file" "netfile" {
 #   create_duration = "30s"
 # }
 
-# #
+#
 # resource "rafay_namespace_network_policy_rule" "demo-withinworkspacerule" {
-#   depends_on = [time_sleep.wait_30_seconds]
+#   //depends_on = [time_sleep.wait_30_seconds]
 #   metadata {    
 #     name    = var.network_policy_rule_name
 #     project = var.project_name    
 #   }
 #   spec {
-#     artifact {
-#       type = "Yaml"
-#       artifact {               
+#     artifact {           
+#       type = "Yaml"    
+#       artifact {   
+#         repository = ""            
+#         revision = ""
 #         paths {                               
 #           name = "file://${path.module}/netfiles/${var.project_name}-within-ws-rule.yaml"        
 #         } 

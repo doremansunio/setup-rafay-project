@@ -51,24 +51,24 @@ resource "rafay_project" "rafay_proj_new" {
 # #   }
 # # }
 
-# data "template_file" "tempnetfile" {    
-#   //depends_on = [rafay_cluster_sharing.demo-terraform-specific]
-#   depends_on = [ rafay_groupassociation.group-association ]
-#   template = file("${path.module}/net-policy-template.yaml")
-#   vars = {
-#       project_name = var.project_name
-#   }
-# }
+data "template_file" "tempnetfile" {    
+  //depends_on = [rafay_cluster_sharing.demo-terraform-specific]
+  depends_on = [rafay_project.rafay_proj_new]
+  template = file("${path.module}/net-policy-template.yaml")
+  vars = {
+      project_name = var.project_name
+  }
+}
 
-# resource "github_repository_file" "netfile" {
-#   depends_on = [data.template_file.tempnetfile]
-#   repository     = "waas"
-#   branch         = "main"
-#   file           = "netfiles/${var.project_name}-within-ws-rule.yaml"
-#   content        = data.template_file.tempnetfile.rendered
-#   commit_message = "${var.project_name}-within-ws-rule.yaml created"
-#   overwrite_on_create = true
-# }
+resource "github_repository_file" "netfile" {
+  depends_on = [data.template_file.tempnetfile]
+  repository     = "waas"
+  branch         = "main"
+  file           = "netfiles/${var.project_name}-within-ws-rule.yaml"
+  content        = data.template_file.tempnetfile.rendered
+  commit_message = "${var.project_name}-within-ws-rule.yaml created"
+  overwrite_on_create = true
+}
 
 # resource "time_sleep" "wait_30_seconds" {
 #   depends_on = [github_repository_file.netfile]

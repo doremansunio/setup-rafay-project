@@ -52,7 +52,7 @@ resource "rafay_groupassociation" "group-association" {
 
 data "template_file" "tempnetfile" {    
   //depends_on = [rafay_cluster_sharing.demo-terraform-specific]
-  depends_on = [rafay_project.rafay_proj_new]
+  depends_on = [rafay_groupassociation.group-association]
   template = file("${path.module}/net-policy-template.yaml")
   vars = {
       project_name = var.project_name

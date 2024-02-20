@@ -51,8 +51,8 @@ resource "rafay_cluster_sharing" "demo-terraform-specific" {
 }
 
 data "template_file" "tempnetfile" {    
-  //depends_on = [rafay_cluster_sharing.demo-terraform-specific]
-  depends_on = [rafay_groupassociation.group-association]
+  depends_on = [rafay_cluster_sharing.demo-terraform-specific]
+  //depends_on = [rafay_groupassociation.group-association]
   template = file("${path.module}/net-policy-template.yaml")
   vars = {
       project_name = var.project_name

@@ -1,19 +1,4 @@
-# resource "null_resource" "tfc_test" {
-#   count = 10
-#   provisioner "local-exec" {
-#     command = "echo 'Test ${count.index}'"
-#   }
-# }
-
-# resource "local_file" "netpolicy-file" {
-#   //depends_on = [ rafay_cluster_sharing.demo-terraform-specific ]
-#   //depends_on = [rafay_groupassociation.group-association]
-#   filename = "${var.project_name}-within-ws-rule.yaml"
-#   content = templatefile("${path.module}/net-policy-template.yaml", {
-#     project_name = var.project_name
-#   })
-# }
-   
+ # Create new Rafay Project
 resource "rafay_project" "rafay_proj_new" {  
   metadata {
     name        = var.project_name
@@ -24,18 +9,33 @@ resource "rafay_project" "rafay_proj_new" {
   }
 }
 
+# Create new Rafay workspace group
 resource "rafay_group" "group-Workspace" {
   depends_on = [rafay_project.rafay_proj_new]
   name        = "WrkspAdmin-grp-${var.project_name}"
   description = "Workspace Admin Group for ${var.project_name}"  
 }
 
+# Creare new group assocication
 resource "rafay_groupassociation" "group-association" {
   depends_on = [rafay_group.group-Workspace]
   group      = "WrkspAdmin-grp-${var.project_name}"
   project    = var.project_name
   roles = ["WORKSPACE_ADMIN","ENVIRONMENT_TEMPLATE_USER"]
   add_users = ["${var.workspace_admins}"]
+}
+
+# Share the Rafay cluster
+resource "rafay_cluster_sharing" "demo-terraform-specific" {
+  depends_on = [rafay_groupassociation.group-association]
+  clustername = var.cluster_name
+  project     = var.central_pool_name
+  sharing {
+    all = false
+    projects {
+      name = var.project_name
+    }    
+  }
 }
 
 data "template_file" "tempnetfile" {    

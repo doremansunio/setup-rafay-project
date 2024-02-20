@@ -25,15 +25,26 @@ resource "rafay_groupassociation" "group-association" {
   add_users = ["${var.workspace_admins}"]
 }
 
-# Share the Rafay cluster
-resource "rafay_cluster_sharing" "demo-terraform-specific" {
-  depends_on = [rafay_groupassociation.group-association]
-  clustername = "${var.cluster_name}"
-  project     = "${var.central_pool_name}"
+ # Share the Rafay cluster
+# resource "rafay_cluster_sharing" "demo-terraform-specific" {
+#   depends_on = [rafay_groupassociation.group-association]
+#   clustername = "${var.cluster_name}"
+#   project     = "${var.central_pool_name}"
+#   sharing {
+#     all = false
+#     projects {
+#       name = "${var.project_name}"
+#     }    
+#   }
+# }
+
+resource "rafay_cluster_sharing" "demo-terraform-specific" {  
+  clustername = "eks-cluster"
+  project     = "central-pool"
   sharing {
     all = false
     projects {
-      name = "${var.project_name}"
+      name = "defaultproject"
     }    
   }
 }

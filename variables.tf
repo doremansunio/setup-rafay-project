@@ -11,7 +11,7 @@ variable "cluster_name" {
 }
 
 variable "workspace_admins" {
-  type    = string  
+  type    = list  
 }
 
 variable "network_policy_name" {

@@ -22,7 +22,8 @@ resource "rafay_groupassociation" "group-association" {
   group      = "WrkspAdmin-grp-${var.project_name}"
   project    = var.project_name
   roles = ["WORKSPACE_ADMIN","ENVIRONMENT_TEMPLATE_USER"]
-  add_users = ["${var.workspace_admins}"]
+  #add_users = ["${var.workspace_admins}"]
+  add_users = var.workspace_admins
 }
 
 resource "rafay_cluster_sharing" "demo-terraform-specific" {  

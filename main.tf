@@ -32,10 +32,19 @@ resource "rafay_cluster_sharing" "demo-terraform-specific" {
   project     = var.central_pool_name
   sharing {
     all = false
-    projects {
-      name = var.project_name
-    }    
-  }
+    dynamic "projects" {
+      for_each = var.projects_to_share
+      content {
+        name = projects.value  
+      }   
+    } 
+  }  
+  # sharing {
+  #   all = false
+  #   projects {
+  #     name = var.project_name
+  #   }    
+  # }
 }
 
 data "template_file" "tempnetfile" {    

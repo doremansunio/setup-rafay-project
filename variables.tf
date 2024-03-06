@@ -14,6 +14,10 @@ variable "workspace_admins" {
   type    = list  
 }
 
+variable "projects_to_share" {
+  type    = list  
+}
+
 variable "network_policy_name" {
   type = string
 }

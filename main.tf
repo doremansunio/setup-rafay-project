@@ -19,8 +19,6 @@ resource "rafay_project" "rafay_proj_new" {
       services_load_balancers = "10"
       services_node_ports = "10"
       storage_requests = "100Gi"
-      gpu_requests = "10"
-      gpu_limits = "10"
     }
     default_cluster_namespace_quota {
       cpu_requests = "1000m"
@@ -35,8 +33,6 @@ resource "rafay_project" "rafay_proj_new" {
       services_load_balancers = "4"
       services_node_ports = "4"
       storage_requests = "10Gi"
-      gpu_requests = "10"
-      gpu_limits = "10"
     } 
   }
 }

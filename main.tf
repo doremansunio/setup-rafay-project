@@ -6,6 +6,38 @@ resource "rafay_project" "rafay_proj_new" {
   }
   spec {
     default = false    
+    cluster_resource_quota {
+      cpu_requests = var.proj_cpu_requests
+      memory_requests = var.proj_memory_requests
+      cpu_limits = var.proj_cpu_limits
+      memory_limits = var.proj_memory_limits
+      config_maps = var.proj_config_maps
+      persistent_volume_claims = var.proj_persistent_volume_claims
+      services = var.proj_services
+      pods = var.proj_pods
+      replication_controllers = var.proj_replication_controllers
+      services_load_balancers = var.proj_services_load_balancers
+      services_node_ports = var.proj_services_node_ports
+      storage_requests = var.proj_storage_requests
+      gpu_requests = var.proj_gpu_requests
+      gpu_limits = var.proj_gpu_limits
+    }
+    default_cluster_namespace_quota {
+      cpu_requests = var.ns_cpu_requests
+      memory_requests = var.ns_memory_requests
+      cpu_limits = var.ns_cpu_limits
+      memory_limits = var.ns_memory_limits
+      config_maps = var.ns_config_maps
+      persistent_volume_claims = var.ns_persistent_volume_claims
+      services = var.ns_services
+      pods = var.ns_pods
+      replication_controllers = var.ns_replication_controllers
+      services_load_balancers = var.ns_services_load_balancers
+      services_node_ports = var.ns_services_node_ports
+      storage_requests = var.ns_storage_requests
+      gpu_requests = var.ns_gpu_requests
+      gpu_limits = var.ns_gpu_limits
+    } 
   }
 }
 

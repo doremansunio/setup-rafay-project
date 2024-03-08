@@ -7,36 +7,36 @@ resource "rafay_project" "rafay_proj_new" {
   spec {
     default = false    
     cluster_resource_quota {
-      cpu_requests = var.proj_cpu_requests
-      memory_requests = var.proj_memory_requests
-      cpu_limits = var.proj_cpu_limits
-      memory_limits = var.proj_memory_limits
-      config_maps = var.proj_config_maps
-      persistent_volume_claims = var.proj_persistent_volume_claims
-      services = var.proj_services
-      pods = var.proj_pods
-      replication_controllers = var.proj_replication_controllers
-      services_load_balancers = var.proj_services_load_balancers
-      services_node_ports = var.proj_services_node_ports
-      storage_requests = var.proj_storage_requests
-      gpu_requests = var.proj_gpu_requests
-      gpu_limits = var.proj_gpu_limits
+      cpu_requests = "4000m"
+      memory_requests = "4096Mi"
+      cpu_limits = "8000m"
+      memory_limits = "8192Mi"
+      config_maps = "10"
+      persistent_volume_claims = "5"
+      services = "20"    
+      pods = "200"
+      replication_controllers = "10"
+      services_load_balancers = "10"
+      services_node_ports = "10"
+      storage_requests = "100Gi"
+      gpu_requests = "10"
+      gpu_limits = "10"
     }
     default_cluster_namespace_quota {
-      cpu_requests = var.ns_cpu_requests
-      memory_requests = var.ns_memory_requests
-      cpu_limits = var.ns_cpu_limits
-      memory_limits = var.ns_memory_limits
-      config_maps = var.ns_config_maps
-      persistent_volume_claims = var.ns_persistent_volume_claims
-      services = var.ns_services
-      pods = var.ns_pods
-      replication_controllers = var.ns_replication_controllers
-      services_load_balancers = var.ns_services_load_balancers
-      services_node_ports = var.ns_services_node_ports
-      storage_requests = var.ns_storage_requests
-      gpu_requests = var.ns_gpu_requests
-      gpu_limits = var.ns_gpu_limits
+      cpu_requests = "1000m"
+      memory_requests = "1024Mi"
+      cpu_limits = "2000m"
+      memory_limits = "2048Mi"
+      config_maps = "5"
+      persistent_volume_claims = "2"
+      services = "10"
+      pods = "20"
+      replication_controllers = "4"
+      services_load_balancers = "4"
+      services_node_ports = "4"
+      storage_requests = "10Gi"
+      gpu_requests = "10"
+      gpu_limits = "10"
     } 
   }
 }

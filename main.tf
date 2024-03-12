@@ -105,3 +105,20 @@ resource "github_repository_file" "netfile" {
   commit_message = "${var.project_name}-within-ws-rule.yaml created"
   overwrite_on_create = true
 }
+
+data "template_file" "tempnetfile" {    
+  depends_on = [rafay_cluster_sharing.demo-terraform-specific]
+  //depends_on = [rafay_groupassociation.group-association]
+  template = file("${path.module}/deny-all-ns.yaml")
+}
+
+resource "github_repository_file" "netfile" {
+  depends_on = [data.template_file.tempnetfile]
+  repository     = var.git_repo_name
+  branch         = var.git_repo_branch
+  file           = "netfiles/${var.project_name}-deny-all-ns-rule.yaml"
+  content        = data.template_file.tempnetfile.rendered
+  commit_message = "${var.project_name}-deny-all-ns-rule.yaml created"
+  overwrite_on_create = true
+}
+

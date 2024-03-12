@@ -101,7 +101,7 @@ resource "github_repository_file" "within-ns-netfile" {
   repository     = var.git_repo_name
   branch         = var.git_repo_branch
   file           = "netfiles/${var.project_name}-within-ws-rule.yaml"
-  content        = data.template_file.tempnetfile.rendered
+  content        = data.template_file.temp-within-ns-netfile.rendered
   commit_message = "${var.project_name}-within-ws-rule.yaml created"
   overwrite_on_create = true
 }
@@ -117,7 +117,7 @@ resource "github_repository_file" "denyall-ns-netfile" {
   repository     = var.git_repo_name
   branch         = var.git_repo_branch
   file           = "netfiles/${var.project_name}-deny-all-ns-rule.yaml"
-  content        = data.template_file.tempnetfile.rendered
+  content        = data.template_file.temp-denyall-ns-netfile.rendered
   commit_message = "${var.project_name}-deny-all-ns-rule.yaml created"
   overwrite_on_create = true
 }

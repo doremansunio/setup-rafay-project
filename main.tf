@@ -87,7 +87,7 @@ resource "rafay_cluster_sharing" "demo-terraform-specific" {
   # }
 }
 
-data "template_file" "tempnetfile" {    
+data "template_file" "temp-within-ns-netfile" {    
   depends_on = [rafay_cluster_sharing.demo-terraform-specific]
   //depends_on = [rafay_groupassociation.group-association]
   template = file("${path.module}/net-policy-template.yaml")
@@ -96,8 +96,8 @@ data "template_file" "tempnetfile" {
   }
 }
 
-resource "github_repository_file" "netfile" {
-  depends_on = [data.template_file.tempnetfile]
+resource "github_repository_file" "within-ns-netfile" {
+  depends_on = [data.template_file.temp-within-ns-netfile]
   repository     = var.git_repo_name
   branch         = var.git_repo_branch
   file           = "netfiles/${var.project_name}-within-ws-rule.yaml"
@@ -106,14 +106,14 @@ resource "github_repository_file" "netfile" {
   overwrite_on_create = true
 }
 
-data "template_file" "tempnetfile" {    
-  depends_on = [rafay_cluster_sharing.demo-terraform-specific]
+data "template_file" "temp-denyall-ns-netfile" {    
+  depends_on = [github_repository_file.within-ns-netfile]
   //depends_on = [rafay_groupassociation.group-association]
   template = file("${path.module}/deny-all-ns.yaml")
 }
 
-resource "github_repository_file" "netfile" {
-  depends_on = [data.template_file.tempnetfile]
+resource "github_repository_file" "denyall-ns-netfile" {
+  depends_on = [data.template_file.temp-denyall-ns-netfile]
   repository     = var.git_repo_name
   branch         = var.git_repo_branch
   file           = "netfiles/${var.project_name}-deny-all-ns-rule.yaml"

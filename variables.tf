@@ -18,11 +18,19 @@ variable "projects_to_share" {
   type    = list  
 }
 
-variable "network_policy_name" {
+variable "within_ws_ntwrk_policy_name" {
   type = string
 }
 
-variable "network_policy_rule_name" {
+variable "denyall_ns_ntwrk_policy_name" {
+  type = string
+}
+
+variable "within_ws_ntwrk_rule_name" {
+  type = string
+}
+
+variable "denyall_ns_ntwrk_rule_name" {
   type = string
 }
 
